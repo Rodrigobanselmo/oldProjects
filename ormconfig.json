@@ -1,0 +1,25 @@
+{
+  "name": "default",
+  "type": "postgres",
+  "port": 5432,
+  "host": "localhost",
+  "username": "rentx",
+  "password": "rentx",
+  "database": "rentx",
+  "synchronize": true,
+  "logging": false,
+  "entities": [
+    "./src/shared/infra/typeorm/**/entities/*.ts"
+  ],
+  "migrations": [
+    "./src/shared/infra/typeorm/migrations/*.ts"
+  ],
+  "subscribers": [
+    "./src/shared/infra/typeorm/subscribers/*.ts"
+  ],
+  "cli": {
+    "entitiesDir": "./src/modules/**/entities",
+    "migrationsDir": "./src/shared/infra/typeorm/migrations",
+    "subscribersDir": "./src/shared/infra/typeorm/subscribers"
+  }
+}
