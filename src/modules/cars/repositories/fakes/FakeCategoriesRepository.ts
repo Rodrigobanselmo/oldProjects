@@ -28,6 +28,11 @@ class FakeCategoriesRepository implements ICategoriesRepository {
     const category = this.categories.find(category => category.name === name);
     return category;
   }
+
+  async findById(id: string): Promise<Category | undefined> {
+    const category = this.categories.find(category => category.id === id);
+    return category;
+  }
 }
 
 export { FakeCategoriesRepository };

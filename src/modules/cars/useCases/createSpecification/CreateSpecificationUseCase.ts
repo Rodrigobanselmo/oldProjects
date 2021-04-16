@@ -17,18 +17,21 @@ class CreateSpecificationUseCase {
   ) {}
 
   async execute({ name, description }: IRequest): Promise<Specification> {
-    const hasCategory = await this.specificationsRepository.findByName(name);
+    const hasSpecification = await this.specificationsRepository.findByName(
+      name,
+    );
 
-    if (hasCategory) {
+    if (hasSpecification) {
+      console.log('já tem essa especificação');
       throw new AppError('This specification already exists');
     }
 
-    const category = this.specificationsRepository.create({
+    const specification = await this.specificationsRepository.create({
       name,
       description,
     });
 
-    return category;
+    return specification;
   }
 }
 

@@ -15,7 +15,6 @@ export class CreateCars1618290744412 implements MigrationInterface {
             name: 'name',
             type: 'varchar',
             isNullable: false,
-            isUnique: true,
           },
           {
             name: 'description',

@@ -9,6 +9,7 @@ export default function ErrorsMessages(
   response: Response,
   next: NextFunction,
 ): Response {
+  console.log('entrou no Erros');
   if (err instanceof AppError) {
     return response.status(err.statusCode).json({
       message: err.message,

@@ -9,7 +9,7 @@
   "synchronize": true,
   "logging": false,
   "entities": [
-    "./src/shared/infra/typeorm/**/entities/*.ts"
+    "./src/modules/**/infra/typeorm/entities/*.ts"
   ],
   "migrations": [
     "./src/shared/infra/typeorm/migrations/*.ts"
@@ -18,7 +18,7 @@
     "./src/shared/infra/typeorm/subscribers/*.ts"
   ],
   "cli": {
-    "entitiesDir": "./src/modules/**/entities",
+    "entitiesDir": "./src/modules/**/infra/typeorm/entities",
     "migrationsDir": "./src/shared/infra/typeorm/migrations",
     "subscribersDir": "./src/shared/infra/typeorm/subscribers"
   }

@@ -237,6 +237,30 @@
           }
         }
       }
+    },
+    "/cars": {
+      "post": {
+        "tags": [ "cars" ],
+        "summary": "Add a new Car",
+        "description": "Create a new Car",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -300,6 +324,10 @@
             "type": "string",
             "example": "teste@teste.com"
           },
+          "password": {
+            "type": "string",
+            "example": "qwe123"
+          },
           "avatar": {
             "type": "string",
             "example": "http://avatar.com/avatar.png"
@@ -318,6 +346,52 @@
           }
         },
         "required": ["name", "email", "password", "driver_license"]
+      },
+      "Car": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "Car name"
+          },
+          "description": {
+            "type": "string",
+            "example": "Car description"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Brand"
+          },
+          "category_id": {
+            "type": "string",
+            "example": "eefe84e5-3041-4823-a30d-e0245f3d625d"
+          },
+          "daily_rate": {
+            "type": "number",
+            "example": 10
+          },
+          "available": {
+            "type": "boolean",
+            "default": true
+          },
+          "license_plate": {
+            "type": "string",
+            "example": "ABC1234"
+          },
+          "fine_amount": {
+            "type": "number",
+            "example": 20
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["name", "description", "brand", "category_id", "daily_rate", "license_plate", "fine_amount"]
       }
     },
     "securitySchemes": {

@@ -9,7 +9,7 @@ import { v4 as uuid } from 'uuid';
 @Entity('specifications')
 class Specification {
   @PrimaryGeneratedColumn('uuid')
-  id?: string;
+  id: string;
 
   @Column()
   name: string;
