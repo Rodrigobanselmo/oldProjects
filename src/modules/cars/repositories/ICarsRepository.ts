@@ -9,6 +9,7 @@ export interface IFiltersRequest {
 interface ICarsRepository {
   create(data: ICreateCarDTO): Promise<Car>;
   findByLicensePlate(license_plate: string): Promise<Car | undefined>;
+  findById(id: string): Promise<Car | undefined>;
   listAllCars(): Promise<Car[]>;
   findAvailables(data?: IFiltersRequest): Promise<Car[]>;
   save(car: Car): Promise<Car>;

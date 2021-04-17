@@ -281,6 +281,114 @@
           }
         }
       }
+    },
+    "/cars/availables": {
+      "get": {
+        "tags": [ "cars" ],
+        "summary": "List all available Cars",
+        "description": "List all available cars",
+        "responses": {
+          "200": {
+            "description": "List available cars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Car"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Cars name",
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category_id",
+            "in": "query",
+            "description": "Category car",
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "brand",
+            "in": "query",
+            "description": "Brands car",
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string",
+              "description": "GM"
+            }
+          }
+        ]
+      }
+    },
+    "/cars/specifications/{id}": {
+      "patch": {
+        "tags": [ "cars" ],
+        "summary": "Set specifications on car",
+        "description": "Set specifications list on cars",
+        "requestBody": {
+          "description": "specifications id",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "examples": {
+                "specification_ids": {
+                  "value": {
+                    "specification_ids": ["id", "id2"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Specifications updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/Car"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Car ID",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ]
+      }
     }
   },
   "components": {

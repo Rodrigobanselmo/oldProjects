@@ -11,9 +11,9 @@ class ListAvailablesCarsController {
     );
 
     const cars = await listAvailablesCarsUsecase.execute({
-      brand: String(brand),
-      category_id: String(category_id),
-      name: String(name),
+      brand: brand as string,
+      category_id: category_id as string,
+      name: name as string,
     });
 
     return response.json(cars);
