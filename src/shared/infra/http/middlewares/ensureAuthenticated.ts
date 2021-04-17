@@ -18,10 +18,8 @@ async function ensureAuthenticated(
   next: NextFunction,
 ): Promise<void> {
   const authHeader = request.headers.authorization;
-  console.log('teste');
   try {
     if (!authHeader) {
-      console.log('1');
       throw new AppError('JWT token is missing', 401);
     }
 
@@ -34,7 +32,6 @@ async function ensureAuthenticated(
     const user = await usersRepository.findById(user_id);
 
     if (!user) {
-      console.log('2');
       throw new AppError('User does not exists', 401);
     }
 
@@ -44,8 +41,6 @@ async function ensureAuthenticated(
 
     return next();
   } catch (err) {
-    console.log('aqui');
-    // return next(err);
     throw new AppError('Invalid JWT token', 401);
   }
 }

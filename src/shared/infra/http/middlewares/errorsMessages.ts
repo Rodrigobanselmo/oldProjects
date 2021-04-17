@@ -3,13 +3,12 @@ import { NextFunction, Request, Response } from 'express';
 
 import { AppError } from '@shared/errors/AppError';
 
-export default function ErrorsMessages(
+export default function errorsMessages(
   err: Error,
   request: Request,
   response: Response,
   next: NextFunction,
 ): Response {
-  console.log('entrou no Erros');
   if (err instanceof AppError) {
     return response.status(err.statusCode).json({
       message: err.message,
@@ -21,4 +20,4 @@ export default function ErrorsMessages(
   });
 }
 
-export { ErrorsMessages };
+export { errorsMessages };

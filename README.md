@@ -1,30 +1,30 @@
 # Cadastro de Categoria
 **RF**
-[ ] Deve ser possível cadastro uma categoria de carros.
+[x] Deve ser possível cadastro uma categoria de carros.
 
 **RN**
-[ ] Não deve ser possível cadastrar uma categoria já existente.
-[ ] Apenas usuários administradores podem adicionar categorias.
+[x] Não deve ser possível cadastrar uma categoria já existente.
+[x] Apenas usuários administradores podem adicionar categorias.
 
 # Cadastro de Carro
 **RF**
-[ ] Deve ser possível cadastro um novo carro.
+[x] Deve ser possível cadastro um novo carro.
 
 **RN**
-[ ] Não deve ser possível cadastrar um carro com a placa existente.
+[x] Não deve ser possível cadastrar um carro com a placa existente.
+[x] O carro ao ser cadastrado, deve estar disponível.
+[x] Apenas usuários administradores podem adicionar carros.
 [ ] Não deve ser possível alterar a placa de um carro já cadastrado.
-[ ] O carro ao ser cadastrado, deve estar disponível.
-[ ] Apenas usuários administradores podem adicionar carros.
 
 # Listagem de Carros
 **RF**
-[ ] Deve ser possível listar todos os carros disponíveis
+[x] Deve ser possível listar todos os carros disponíveis
 [ ] Deve ser possível listar todos os carros disponíveis pelo nome da categoria
 [ ] Deve ser possível listar todos os carros disponíveis pelo nome da marca
 [ ] Deve ser possível listar todos os carros disponíveis pelo nome do carro
 
 **RN**
-[ ] O usuário não precisa estar logado para listagem
+[x] O usuário não precisa estar logado para listagem
 
 # Cadastro de Especificações no Carro
 **RF**
