@@ -36,6 +36,7 @@ export class CreateCarImages1618678897762 implements MigrationInterface {
           },
         ],
       }),
+      true,
     );
   }
 

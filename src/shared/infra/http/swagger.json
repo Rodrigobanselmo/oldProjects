@@ -431,6 +431,37 @@
           }
         ]
       }
+    },
+    "/rentals": {
+      "post": {
+        "tags": [ "rentals" ],
+        "summary": "Add a new Rental",
+        "description": "Create a new Rental",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rental"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rental"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -562,6 +593,46 @@
           }
         },
         "required": ["name", "description", "brand", "category_id", "daily_rate", "license_plate", "fine_amount"]
+      },
+      "Rental": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "car_id": {
+            "type": "string",
+            "example": "eefe84e5-3041-4823-a30d-e0245f3d625d"
+          },
+          "user_id": {
+            "type": "string",
+            "example": "eefe84e5-3041-4823-a30d-e0245f3d625d"
+          },
+          "return_date": {
+            "type": "string",
+            "example": "2019-05-14T10:00:00+03:00",
+            "format": "date-time"
+          },
+          "start_date": {
+            "type": "string",
+            "example": "2019-05-14T10:00:00+03:00",
+            "format": "date-time"
+          },
+          "total": {
+            "type": "number",
+            "example": 10
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["car_id", "user_id", "return_date"]
       }
     },
     "securitySchemes": {
