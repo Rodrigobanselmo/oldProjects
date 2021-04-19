@@ -1,4 +1,4 @@
-export class AppError {
+export class AppError implements Error {
   public readonly message: string;
   public readonly statusCode: number;
 
@@ -7,4 +7,6 @@ export class AppError {
     this.message = message;
     this.statusCode = statusCode;
   }
+  name: string;
+  stack?: string | undefined;
 }

@@ -68,7 +68,7 @@ class CreateRentalUseCase {
     const rental = await this.rentalsRepository.create({
       car_id,
       return_date: returnDateFormat,
-      total: (Math.trunc(diffHours) / 24) * car.daily_rate,
+      total: (diffHours / 24) * car.daily_rate,
       user_id,
     });
 

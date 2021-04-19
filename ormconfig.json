@@ -6,7 +6,7 @@
   "username": "rentx",
   "password": "rentx",
   "database": "rentx",
-  "synchronize": true,
+  "synchronize": false,
   "logging": false,
   "entities": [
     "./src/modules/**/infra/typeorm/entities/*.ts"
