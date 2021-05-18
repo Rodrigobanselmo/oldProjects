@@ -1,8 +1,6 @@
 import { FakeUsersRepository } from '@modules/accounts/repositories/fakes/FakeUsersRepository';
-import { hash } from 'bcryptjs';
-
 import { AppError } from '@shared/errors/AppError';
-
+import { hash } from 'bcryptjs';
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
 
 let fakeUsersRepository: FakeUsersRepository;
@@ -31,12 +29,12 @@ describe('Authenticate User', () => {
   });
 
   it('Should not be able to authenticate a invalid user', async () => {
-    expect(async () => {
-      await authenticateUserUseCase.execute({
+    await expect(
+      authenticateUserUseCase.execute({
         email: 'user.email',
         password: 'asdqwe123',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('Email or password incorrect'));
   });
 
   it('Should not be able to authenticate with a invalid password', async () => {
@@ -47,11 +45,11 @@ describe('Authenticate User', () => {
       driver_license: 'License',
     });
 
-    expect(async () => {
-      await authenticateUserUseCase.execute({
+    await expect(
+      authenticateUserUseCase.execute({
         email: user.email,
         password: '123qweasd',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('Email or password incorrect'));
   });
 });

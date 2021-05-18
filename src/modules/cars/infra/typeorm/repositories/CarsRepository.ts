@@ -4,7 +4,6 @@ import {
   IFiltersRequest,
 } from '@modules/cars/repositories/ICarsRepository';
 import { getRepository, Repository } from 'typeorm';
-
 import { Car } from '../entities/Car';
 
 class CarsRepository implements ICarsRepository {
@@ -85,6 +84,10 @@ class CarsRepository implements ICarsRepository {
     const updatedCar = await this.repository.save(car);
 
     return updatedCar;
+  }
+
+  async updateAvailable(id: string, available: boolean): Promise<void> {
+    await this.repository.update(id, { available });
   }
 }
 

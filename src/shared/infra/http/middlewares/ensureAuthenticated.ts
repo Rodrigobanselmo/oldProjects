@@ -1,16 +1,7 @@
-import auth from '@config/auth';
 import { UsersRepository } from '@modules/accounts/infra/typeorm/repositories/UsersRepository';
-import { NextFunction, Request, Response } from 'express';
-import { Secret, verify } from 'jsonwebtoken';
-
+import { JwtTokenProvider } from '@shared/container/providers/TokenProvider/implementations/JwtTokenProvider';
 import { AppError } from '@shared/errors/AppError';
-
-interface ITokenDecoded {
-  iat: number;
-  exp: number;
-  aud: string;
-  sub: string;
-}
+import { NextFunction, Request, Response } from 'express';
 
 async function ensureAuthenticated(
   request: Request,
@@ -18,15 +9,17 @@ async function ensureAuthenticated(
   next: NextFunction,
 ): Promise<void> {
   const authHeader = request.headers.authorization;
+  const jwtTokenProvider = new JwtTokenProvider();
   try {
     if (!authHeader) {
       throw new AppError('JWT token is missing', 401);
     }
 
-    const { secret } = auth.jwt;
     const [, token] = authHeader.split(' ');
-    const decoded = verify(token, secret as Secret);
-    const { sub: user_id } = decoded as ITokenDecoded;
+    const { sub: user_id } = jwtTokenProvider.verifyIsValidToken(
+      token,
+      'default',
+    );
 
     const usersRepository = new UsersRepository();
     const user = await usersRepository.findById(user_id);

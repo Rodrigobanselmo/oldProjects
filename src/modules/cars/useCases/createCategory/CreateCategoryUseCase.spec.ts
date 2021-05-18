@@ -1,7 +1,5 @@
 import { FakeCategoriesRepository } from '@modules/cars/repositories/fakes/FakeCategoriesRepository';
-
 import { AppError } from '@shared/errors/AppError';
-
 import { CreateCategoryUseCase } from './CreateCategoryUseCase';
 
 let createCategoryUseCase: CreateCategoryUseCase;
@@ -21,17 +19,16 @@ describe('Create Category', () => {
     expect(category).toHaveProperty('id');
   });
 
-  it('Should not be able to create a new category with same name', () => {
-    expect(async () => {
-      await createCategoryUseCase.execute({
+  it('Should not be able to create a new category with same name', async () => {
+    await createCategoryUseCase.execute({
+      name: 'Name',
+      description: 'description',
+    });
+    await expect(
+      createCategoryUseCase.execute({
         name: 'Name',
         description: 'description',
-      });
-
-      await createCategoryUseCase.execute({
-        name: 'Name',
-        description: 'description',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('This category already exist'));
   });
 });

@@ -1,9 +1,8 @@
 import { FakeCarsRepository } from '@modules/cars/repositories/fakes/FakeCarsRepository';
-
 import { FakeDateProvider } from '@shared/container/providers/DateProvider/fakes/FakeDateProvider';
 import { AppError } from '@shared/errors/AppError';
-
-import { FakeRentalsRepository } from '../repositories/fakes/FakeRentalsRepository';
+import dayjs from 'dayjs';
+import { FakeRentalsRepository } from '../../repositories/fakes/FakeRentalsRepository';
 import { CreateRentalUseCase } from './CreateRentalUseCase';
 
 let createRentalUseCase: CreateRentalUseCase;
@@ -37,21 +36,23 @@ describe('CreateRentals', () => {
 
     const rental = await createRentalUseCase.execute({
       car_id: car.id,
-      return_date: new Date('2021-04-24'),
+      return_date: dayjs().add(25, 'hours').toDate(),
       user_id: 'qwe123',
     });
+    const updatedCar = await fakeCarsRepository.findById(car.id);
 
     expect(rental).toHaveProperty('id');
+    expect(updatedCar?.available).toEqual(false);
   });
 
   it('Should not be able to create a new rental with non-car', async () => {
-    expect(async () => {
-      await createRentalUseCase.execute({
+    await expect(
+      createRentalUseCase.execute({
         car_id: 'non-car-id',
-        return_date: new Date('2021-04-24'),
+        return_date: dayjs().add(25, 'hours').toDate(),
         user_id: 'qwe123',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('This car not exists'));
   });
 
   it('Should not be able to create a new rental when car is unavailable', async () => {
@@ -67,17 +68,17 @@ describe('CreateRentals', () => {
 
     await createRentalUseCase.execute({
       car_id: car.id,
-      return_date: new Date('2021-04-24'),
+      return_date: dayjs().add(25, 'hours').toDate(),
       user_id: 'qwe123',
     });
 
-    expect(async () => {
-      await createRentalUseCase.execute({
+    await expect(
+      createRentalUseCase.execute({
         car_id: car.id,
-        return_date: new Date('2021-04-24'),
+        return_date: dayjs().add(25, 'hours').toDate(),
         user_id: 'qwe1234',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('This car is unavailable'));
   });
 
   it('Should not be able to create a new rental with pending rental', async () => {
@@ -103,17 +104,19 @@ describe('CreateRentals', () => {
 
     await createRentalUseCase.execute({
       car_id: car.id,
-      return_date: new Date('2021-04-24'),
+      return_date: dayjs().add(25, 'hours').toDate(),
       user_id: 'qwe123',
     });
 
-    expect(async () => {
-      await createRentalUseCase.execute({
+    await expect(
+      createRentalUseCase.execute({
         car_id: car2.id,
-        return_date: new Date('2021-04-24'),
+        return_date: dayjs().add(25, 'hours').toDate(),
         user_id: 'qwe123',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(
+      new AppError('There is a rental pending in your account'),
+    );
   });
 
   it('Should not be able to create a new rental with invalid date range', async () => {
@@ -127,12 +130,12 @@ describe('CreateRentals', () => {
       name: 'Car',
     });
 
-    expect(async () => {
-      await createRentalUseCase.execute({
+    await expect(
+      createRentalUseCase.execute({
         car_id: car.id,
         return_date: new Date('2021-04-19 07:30'),
         user_id: 'qwe123',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('Invalid return date'));
   });
 });

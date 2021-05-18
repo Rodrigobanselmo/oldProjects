@@ -13,6 +13,7 @@ interface ICarsRepository {
   listAllCars(): Promise<Car[]>;
   findAvailables(data?: IFiltersRequest): Promise<Car[]>;
   save(car: Car): Promise<Car>;
+  updateAvailable(id: string, available: boolean): Promise<void>;
 }
 
 export { ICarsRepository };

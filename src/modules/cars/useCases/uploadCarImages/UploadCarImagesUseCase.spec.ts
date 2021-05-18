@@ -1,8 +1,6 @@
 import { FakeCarImagesRepository } from '@modules/cars/repositories/fakes/FakeCarImagesRepository';
 import { FakeCarsRepository } from '@modules/cars/repositories/fakes/FakeCarsRepository';
-
 import { AppError } from '@shared/errors/AppError';
-
 import { UploadCarImagesUseCase } from './UploadCarImagesUseCase';
 
 let uploadImageCarUseCase: UploadCarImagesUseCase;
@@ -40,11 +38,11 @@ describe('UploadCarImage', () => {
   });
 
   it('Should not be able to upload image to car with a non-car', async () => {
-    expect(async () => {
-      await uploadImageCarUseCase.execute({
+    await expect(
+      uploadImageCarUseCase.execute({
         car_id: 'non-car-id',
         images_name: ['filename'],
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('Invalid Car'));
   });
 });

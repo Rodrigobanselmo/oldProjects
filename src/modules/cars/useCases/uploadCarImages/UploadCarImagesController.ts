@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-
 import { UploadCarImagesUseCase } from './UploadCarImagesUseCase';
 
 interface IFiles {
@@ -20,7 +19,6 @@ class UploadCarImagesController {
       car_id: id,
       images_name: fileNames,
     });
-    console.log(imageList);
 
     return response.status(201).json(imageList);
   }

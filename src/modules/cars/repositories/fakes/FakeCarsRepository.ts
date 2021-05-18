@@ -1,6 +1,5 @@
 import { ICreateCarDTO } from '@modules/cars/dtos/ICreateCarDTO';
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
-
 import { ICarsRepository, IFiltersRequest } from '../ICarsRepository';
 
 class FakeCarsRepository implements ICarsRepository {
@@ -77,6 +76,15 @@ class FakeCarsRepository implements ICarsRepository {
     this.cars.splice(indexCar, 1, car);
 
     return car;
+  }
+
+  async updateAvailable(id: string, available: boolean): Promise<void> {
+    const indexCar = this.cars.findIndex(carFind => carFind.id === id);
+    const car: Car = {
+      ...this.cars[indexCar],
+      available,
+    };
+    this.cars.splice(indexCar, 1, car);
   }
 }
 

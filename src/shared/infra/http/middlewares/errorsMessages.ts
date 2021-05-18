@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { AppError } from '@shared/errors/AppError';
 import { NextFunction, Request, Response } from 'express';
 
-import { AppError } from '@shared/errors/AppError';
-
-export default function errorsMessages(
+function errorsMessages(
   err: Error,
-  request: Request,
+  req: Request,
   response: Response,
   next: NextFunction,
 ): Response {
@@ -15,6 +14,7 @@ export default function errorsMessages(
     });
   }
 
+  // next(err);
   return response.status(500).json({
     message: `Internal server error - ${err.message}`,
   });

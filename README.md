@@ -1,4 +1,5 @@
 # Cadastro de Categoria
+
 **RF**
 [x] Deve ser possível cadastro uma categoria de carros.
 
@@ -7,6 +8,7 @@
 [x] Apenas usuários administradores podem adicionar categorias.
 
 # Cadastro de Carro
+
 **RF**
 [x] Deve ser possível cadastro um novo carro.
 
@@ -14,9 +16,10 @@
 [x] Não deve ser possível cadastrar um carro com a placa existente.
 [x] O carro ao ser cadastrado, deve estar disponível.
 [x] Apenas usuários administradores podem adicionar carros.
-[ ] Não deve ser possível alterar a placa de um carro já cadastrado.
+[x] Não deve ser possível alterar a placa de um carro já cadastrado.
 
 # Listagem de Carros
+
 **RF**
 [x] Deve ser possível listar todos os carros disponíveis
 [ ] Deve ser possível listar todos os carros disponíveis pelo nome da categoria
@@ -27,30 +30,46 @@
 [x] O usuário não precisa estar logado para listagem
 
 # Cadastro de Especificações no Carro
+
 **RF**
-[ ] Deve ser possível cadastrar uma especificação para um carro
-[ ] Deve ser possível listar todas as especificações
+[x] Deve ser possível cadastrar uma especificação para um carro
+[x] Deve ser possível listar todas as especificações
 [ ] Deve ser possível listar todos os carros
 
 **RN**
-[ ] Não deve ser possível cadastrar uma especificação para um carro não existente
+[x] Não deve ser possível cadastrar uma especificação para um carro não existente
 [ ] Não deve ser possível um carro ter especificação duplicada
-[ ] O usuário não precisa estar logado para listagem
+[ ] O usuário não precisa estar logado para listagem de especificações
 
 # Cadastro de Imagem de Carros
+
 **RF**
-[ ] Deve ser possível adicionar uma imagem a um carro
+[x] Deve ser possível adicionar uma imagem a um carro
 
 **RN**
-[ ] O usuário pode cadastrar mais de uma imagem para o mesmo carro
-[ ] Apenas administrador pode adicionar uma imagem
+[x] O usuário pode cadastrar mais de uma imagem para o mesmo carro
+[x] Apenas administrador pode adicionar uma imagem
 
 # Alugel de Carro
+
 **RF**
-[ ] Deve ser possível cadastrar um alugel de carro
+[x] Deve ser possível cadastrar um alugel de carro
 
 **RN**
-[ ] O alugel deve ter duração mínima de uma hora
-[ ] Apenas clientes podem alugar carros
-[ ] Não pode alugar um carro de carro já esteja alugado
-[ ] Um carro não pode ser alugado por um cliente que já tenha um alugel
+[x] O alugel deve ter duração mínima de 24 horas
+[x] Apenas clientes podem alugar carros
+[x] Não pode alugar um carro de carro já esteja alugado
+[x] Um carro não pode ser alugado por um cliente que já tenha um alugel
+
+# Devolução de Carro
+
+**RF**
+[ ] Deve ser possível realizar a devolução de um carro
+
+**RN**
+[ ] Se o carro for devolvido com menos de 24 horas, deverá ser cobrado a diária completa.
+[ ] Ao realizar a devolução, o carro deverá ser liberado para outro aluguel.
+[ ] Ao realizar a devolução, o usuário deverá ser liberado para outro aluguel.
+[ ] Ao realizar a devolução, deverá ser calculado o total do aluguel.
+[ ] Caso o horário de devolução seja superior ao horário previsto de entrega, deverá ser cobrado multa proporcionao aos dias de atraso.
+[ ] Caso haja multa, deverá ser somado ao total do aluguel.

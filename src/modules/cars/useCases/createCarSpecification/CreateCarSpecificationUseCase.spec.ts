@@ -1,8 +1,6 @@
 import { FakeCarsRepository } from '@modules/cars/repositories/fakes/FakeCarsRepository';
 import { FakeSpecificationsRepository } from '@modules/cars/repositories/fakes/FakeSpecificationsRepository';
-
 import { AppError } from '@shared/errors/AppError';
-
 import { CreateCarSpecificationUseCase } from './CreateCarSpecificationUseCase';
 
 let fakeSpecificationsRepository: FakeSpecificationsRepository;
@@ -57,11 +55,11 @@ describe('CreateCarSpecification', () => {
       description: 'description2',
     });
 
-    expect(async () => {
-      await createCarSpecificationUseCase.execute({
+    await expect(
+      createCarSpecificationUseCase.execute({
         car_id: 'invalid-car',
         specification_ids: [spec1.id, spec2.id],
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('Car not found'));
   });
 });

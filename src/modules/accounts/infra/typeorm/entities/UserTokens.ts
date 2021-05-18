@@ -1,41 +1,34 @@
-import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  Generated,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { User } from './User';
 
-@Entity('rentals')
-class Rental {
+@Entity('users_tokens')
+class UserToken {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
+  @Generated('uuid')
+  refresh_token: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+
+  @Column()
   user_id: string;
 
-  @ManyToOne(() => Car)
-  @JoinColumn({ name: 'car_id' })
-  car: Car;
-
-  @Column()
-  car_id: string;
-
-  @Column({ default: 'now()' })
-  start_date: Date;
-
-  @Column()
-  end_date: Date;
-
-  @Column()
-  return_date: Date;
-
-  @Column()
-  total: number;
+  @Column('timestamp')
+  expires_date: Date;
 
   @CreateDateColumn()
   created_at: Date;
@@ -50,4 +43,4 @@ class Rental {
   }
 }
 
-export { Rental };
+export { UserToken };

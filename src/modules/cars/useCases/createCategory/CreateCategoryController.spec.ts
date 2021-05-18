@@ -8,12 +8,6 @@ import request from 'supertest';
 import { Connection } from 'typeorm';
 import { v4 } from 'uuid';
 
-interface IAdminUser {
-  email: string;
-  password: string;
-}
-
-let adminUser: IAdminUser;
 let connection: Connection;
 
 describe('Create Category Controller', () => {
@@ -21,17 +15,12 @@ describe('Create Category Controller', () => {
     connection = await createConnection();
     await connection.runMigrations();
 
-    adminUser = {
-      email: 'teste@test.com',
-      password: 'admin',
-    };
-
-    const hashPass = await hash(adminUser.password, 8);
+    const hashPass = await hash('admin', 8);
     const id = v4();
 
     await connection.query(`
     INSERT INTO USERS(id, name, email, password, admin, created_at, driver_license)
-    VALUES ('${id}', 'teste', '${adminUser.email}', '${hashPass}', true, 'now()', 'qwe123')`);
+    VALUES ('${id}', 'teste', 'teste@test.com', '${hashPass}', true, 'now()', 'qwe123')`);
   });
 
   afterAll(async () => {
@@ -41,8 +30,8 @@ describe('Create Category Controller', () => {
 
   it('should be able to create a new category', async () => {
     const responseToken = await request(app).post('/sessions').send({
-      email: adminUser.email,
-      password: adminUser.password,
+      email: 'teste@test.com',
+      password: 'admin',
     });
 
     const { token } = responseToken.body;

@@ -2,9 +2,8 @@ import { ICreateCarDTO } from '@modules/cars/dtos/ICreateCarDTO';
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
 import { ICategoriesRepository } from '@modules/cars/repositories/ICategoriesRepository';
-import { inject, injectable } from 'tsyringe';
-
 import { AppError } from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 
 @injectable()
 class CreateCarUseCase {
@@ -30,14 +29,14 @@ class CreateCarUseCase {
     );
 
     if (existCar) {
-      throw new AppError('Invalid Fields', 400);
+      throw new AppError('This car already exists', 400);
     }
 
     // verifica se existe a categoria
     const category = await this.categoriesRepository.findById(category_id);
 
     if (!category) {
-      throw new AppError('Invalid Fields', 400);
+      throw new AppError('Invalid Category', 400);
     }
 
     const car = await this.carsRepository.create({

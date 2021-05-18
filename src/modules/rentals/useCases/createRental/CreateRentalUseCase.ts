@@ -1,13 +1,11 @@
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
+import { IDateProvider } from '@shared/container/providers/DateProvider/models/IDateProvider';
+import { AppError } from '@shared/errors/AppError';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { inject, injectable } from 'tsyringe';
-
-import { IDateProvider } from '@shared/container/providers/DateProvider/models/IDateProvider';
-import { AppError } from '@shared/errors/AppError';
-
-import { Rental } from '../infra/typeorm/entities/Rental';
-import { IRentalsRepository } from '../repositories/IRentalsRepository';
+import { Rental } from '../../infra/typeorm/entities/Rental';
+import { IRentalsRepository } from '../../repositories/IRentalsRepository';
 
 dayjs.extend(utc);
 
@@ -42,7 +40,6 @@ class CreateRentalUseCase {
     const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(
       car_id,
     );
-
     if (carUnavailable) {
       throw new AppError('This car is unavailable');
     }
@@ -50,13 +47,11 @@ class CreateRentalUseCase {
     const rentalOpenToUser = await this.rentalsRepository.findOpenRentalByUser(
       user_id,
     );
-
     if (rentalOpenToUser) {
       throw new AppError('There is a rental pending in your account');
     }
 
     // a data de retorno não pode ser anterior a data de reserva
-    const returnDateFormat = this.dateProvider.convertToUTC(return_date);
     const dateNow = this.dateProvider.dateNow();
 
     const diffHours = this.dateProvider.compareInHours(dateNow, return_date);
@@ -67,10 +62,11 @@ class CreateRentalUseCase {
 
     const rental = await this.rentalsRepository.create({
       car_id,
-      return_date: returnDateFormat,
+      return_date,
       total: (diffHours / 24) * car.daily_rate,
       user_id,
     });
+    await this.carsRepository.updateAvailable(car_id, false);
 
     return rental;
   }
