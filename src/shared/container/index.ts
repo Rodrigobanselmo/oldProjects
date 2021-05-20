@@ -13,9 +13,7 @@ import { ISpecificationsRepository } from '@modules/cars/repositories/ISpecifica
 import { RentalsRepository } from '@modules/rentals/infra/typeorm/repositories/RentalsRepository';
 import { IRentalsRepository } from '@modules/rentals/repositories/IRentalsRepository';
 import { container } from 'tsyringe';
-import './providers/DateProvider';
-import './providers/HashProvider';
-import './providers/TokenProvider';
+import './providers';
 
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',

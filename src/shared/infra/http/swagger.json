@@ -267,6 +267,76 @@
         }
       }
     },
+    "/password/forgot": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Request a new Password",
+        "description": "When a user forgot a password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "your@email.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "User does not exists!"
+          }
+        }
+      }
+    },
+    "/password/reset/{token}": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Reset a Password",
+        "description": "Reset a password with token",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "example": "qwe123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "description": "Token",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/cars": {
       "post": {
         "tags": ["cars"],

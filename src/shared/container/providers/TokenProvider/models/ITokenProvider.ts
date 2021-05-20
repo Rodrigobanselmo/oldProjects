@@ -3,9 +3,11 @@ export interface IPayload {
   email: string;
 }
 
-export default interface ITokenProvider {
+interface ITokenProvider {
   generateToken(id: string, roles: string[]): string;
   generateRefreshToken(id: string, email: string, roles: string[]): string;
   expiresRefreshTokenDays(): number;
   verifyIsValidToken(token: string, secret_type: string): IPayload;
 }
+
+export { ITokenProvider };

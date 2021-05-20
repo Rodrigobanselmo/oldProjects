@@ -1,6 +1,6 @@
 import auth from '@config/auth';
 import { sign, verify } from 'jsonwebtoken';
-import ITokenProvider, { IPayload } from '../models/ITokenProvider';
+import { IPayload, ITokenProvider } from '../models/ITokenProvider';
 
 export class JwtTokenProvider implements ITokenProvider {
   public generateToken(id: string, roles: string[]): string {

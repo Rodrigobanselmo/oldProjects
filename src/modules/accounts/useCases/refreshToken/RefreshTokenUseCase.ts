@@ -1,6 +1,6 @@
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 import { IDateProvider } from '@shared/container/providers/DateProvider/models/IDateProvider';
-import ITokenProvider from '@shared/container/providers/TokenProvider/models/ITokenProvider';
+import { ITokenProvider } from '@shared/container/providers/TokenProvider/models/ITokenProvider';
 import { AppError } from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 
@@ -30,8 +30,6 @@ class RefreshTokenUseCase {
       throw new AppError('Refresh Token does not exists!');
     }
 
-    await this.usersTokensRepository.delete(userToken.id);
-
     const refresh_token = this.tokenProvider.generateRefreshToken(
       user_id,
       email,
@@ -50,6 +48,7 @@ class RefreshTokenUseCase {
       user_id,
       expires_date,
     });
+    await this.usersTokensRepository.delete(userToken.id);
 
     return refresh_token;
   }

@@ -18,7 +18,7 @@ async function ensureAuthenticated(
     const [, token] = authHeader.split(' ');
     const { sub: user_id } = jwtTokenProvider.verifyIsValidToken(
       token,
-      'default',
+      'refresh',
     );
 
     const usersRepository = new UsersRepository();

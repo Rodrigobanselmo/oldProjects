@@ -1,15 +1,33 @@
 import { FakeUsersRepository } from '@modules/accounts/repositories/fakes/FakeUsersRepository';
+import { FakeUsersTokensRepository } from '@modules/accounts/repositories/fakes/FakeUsersTokensRepository';
+import { DayJSProvider } from '@shared/container/providers/DateProvider/implementations/DayJSProvider';
+import { BCryptProvider } from '@shared/container/providers/HashProvider/implementations/BCryptProvider';
+import { JwtTokenProvider } from '@shared/container/providers/TokenProvider/implementations/JwtTokenProvider';
 import { AppError } from '@shared/errors/AppError';
 import { hash } from 'bcryptjs';
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
 
 let fakeUsersRepository: FakeUsersRepository;
+let fakeUsersTokensRepository: FakeUsersTokensRepository;
+let dateProvider: DayJSProvider;
+let tokenProvider: JwtTokenProvider;
+let hashProvider: BCryptProvider;
 let authenticateUserUseCase: AuthenticateUserUseCase;
 
 describe('Authenticate User', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
-    authenticateUserUseCase = new AuthenticateUserUseCase(fakeUsersRepository);
+    fakeUsersTokensRepository = new FakeUsersTokensRepository();
+    dateProvider = new DayJSProvider();
+    tokenProvider = new JwtTokenProvider();
+    hashProvider = new BCryptProvider();
+    authenticateUserUseCase = new AuthenticateUserUseCase(
+      fakeUsersRepository,
+      fakeUsersTokensRepository,
+      dateProvider,
+      tokenProvider,
+      hashProvider,
+    );
   });
 
   it('Should be able to authenticate a user', async () => {

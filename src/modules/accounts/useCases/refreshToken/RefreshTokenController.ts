@@ -16,7 +16,6 @@ class RefreshTokenController {
 
       return response.json(userToken);
     } catch (err) {
-      console.log(err);
       return response.status(401).json({
         message: err.message,
       });
