@@ -34,13 +34,13 @@ describe('Create Category Controller', () => {
       password: 'admin',
     });
 
-    const { refresh_token } = responseToken.body;
+    const { token } = responseToken.body;
 
     const response = await request(app)
       .post('/categories')
-      .set('Authorization', `Bearer ${refresh_token}`)
+      .set('Authorization', `Bearer ${token}`)
       .send({
-        name: 'Category supertest',
+        name: 'Category supertest2',
         description: 'Category supertest',
       });
 

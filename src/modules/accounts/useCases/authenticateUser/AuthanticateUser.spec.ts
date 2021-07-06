@@ -1,10 +1,12 @@
 import { FakeUsersRepository } from '@modules/accounts/repositories/fakes/FakeUsersRepository';
 import { FakeUsersTokensRepository } from '@modules/accounts/repositories/fakes/FakeUsersTokensRepository';
+import { hash } from 'bcryptjs';
+
 import { DayJSProvider } from '@shared/container/providers/DateProvider/implementations/DayJSProvider';
 import { BCryptProvider } from '@shared/container/providers/HashProvider/implementations/BCryptProvider';
 import { JwtTokenProvider } from '@shared/container/providers/TokenProvider/implementations/JwtTokenProvider';
 import { AppError } from '@shared/errors/AppError';
-import { hash } from 'bcryptjs';
+
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
 
 let fakeUsersRepository: FakeUsersRepository;

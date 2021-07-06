@@ -1,10 +1,11 @@
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
+import { inject, injectable } from 'tsyringe';
+
 import { IDateProvider } from '@shared/container/providers/DateProvider/models/IDateProvider';
 import { IHashProvider } from '@shared/container/providers/HashProvider/models/IHashProvider';
 import { ITokenProvider } from '@shared/container/providers/TokenProvider/models/ITokenProvider';
 import { AppError } from '@shared/errors/AppError';
-import { inject, injectable } from 'tsyringe';
 
 interface IResponse {
   user: {

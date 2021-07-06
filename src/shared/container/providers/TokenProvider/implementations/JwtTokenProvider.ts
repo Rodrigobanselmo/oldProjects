@@ -1,6 +1,11 @@
 import auth from '@config/auth';
 import { sign, verify } from 'jsonwebtoken';
-import { IPayload, ITokenProvider } from '../models/ITokenProvider';
+
+import {
+  IPayload,
+  ITokenProvider,
+  IVerifyToken,
+} from '../models/ITokenProvider';
 
 export class JwtTokenProvider implements ITokenProvider {
   public generateToken(id: string, roles: string[]): string {
@@ -32,10 +37,7 @@ export class JwtTokenProvider implements ITokenProvider {
     return expires_refresh_token_days;
   }
 
-  public verifyIsValidToken(
-    token: string,
-    secret_type: 'default' | 'refresh',
-  ): IPayload {
+  public verifyIsValidToken({ secret_type, token }: IVerifyToken): IPayload {
     const { secret_refresh_token, secret_token } = auth.jwt;
     let secret: string;
 
