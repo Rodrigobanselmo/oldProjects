@@ -1,13 +1,11 @@
 {
   "name": "default",
   "type": "postgres",
-  "port": 5432,
+  "port": 65432,
   "host": "localhost",
-  "username": "postgres",
-  "password": "postgres",
-  "database": "postgres",
-  "synchronize": false,
-  "logging": false,
+  "username": "docker",
+  "password": "ignite",
+  "database": "rentx",
   "entities": [
     "./src/modules/**/infra/typeorm/entities/*.ts"
   ],
